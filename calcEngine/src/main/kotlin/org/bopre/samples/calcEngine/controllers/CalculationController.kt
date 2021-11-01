@@ -14,4 +14,10 @@ class CalculationController {
         return OutputResult(result)
     }
 
+    @GetMapping("/diff")
+    fun diffOperation(@RequestParam("a") a: Double, @RequestParam("b") b: Double): OutputResult {
+        val result = a - b;
+        return OutputResult(result)
+    }
+
 }
