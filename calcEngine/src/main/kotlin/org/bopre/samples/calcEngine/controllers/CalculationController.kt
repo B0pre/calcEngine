@@ -26,4 +26,10 @@ class CalculationController {
         return OutputResult(result)
     }
 
+    @GetMapping("/mul")
+    fun mulOperation(@RequestParam("a") a: Double, @RequestParam("b") b: Double): OutputResult {
+        val result = a * b;
+        return OutputResult(result)
+    }
+
 }
