@@ -34,4 +34,15 @@ class CalculationControllerTest(@Autowired val mockMvc: MockMvc) {
             .andExpect(content().json(expectedJson))
     }
 
+    @Test
+    fun `div rest request`() {
+        val expectedJson = "{\n" +
+                "\"result\": 0.5\n" +
+                "}\n";
+        mockMvc.perform(get("/div?a=5&b=10"))
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().json(expectedJson))
+    }
+
 }

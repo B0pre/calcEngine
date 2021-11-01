@@ -20,4 +20,10 @@ class CalculationController {
         return OutputResult(result)
     }
 
+    @GetMapping("/div")
+    fun divOperation(@RequestParam("a") a: Double, @RequestParam("b") b: Double): OutputResult {
+        val result = a / b;
+        return OutputResult(result)
+    }
+
 }
