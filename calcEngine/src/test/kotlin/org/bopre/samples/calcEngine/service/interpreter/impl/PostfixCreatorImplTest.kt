@@ -3,20 +3,22 @@ package org.bopre.samples.calcEngine.service.interpreter.impl
 import org.bopre.samples.calcEngine.service.interpreter.PostfixCreator
 import org.bopre.samples.calcEngine.service.interpreter.support.Token
 import org.bopre.samples.calcEngine.service.interpreter.support.TokenType
-import org.bopre.samples.calcEngine.service.interpreter.support.calc.ConstValue
-import org.bopre.samples.calcEngine.service.interpreter.support.calc.Diff
-import org.bopre.samples.calcEngine.service.interpreter.support.calc.Mul
-import org.bopre.samples.calcEngine.service.interpreter.support.calc.Sum
+import org.bopre.samples.calcEngine.service.interpreter.support.VariableStorage
+import org.bopre.samples.calcEngine.service.interpreter.support.calc.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito
 
 class PostfixCreatorImplTest {
+
+    lateinit var variableStorage: VariableStorage
     lateinit var postfixCreator: PostfixCreator
 
     @BeforeEach
     fun beforeEach() {
-        postfixCreator = PostfixCreatorImpl()
+        variableStorage = Mockito.mock(VariableStorage::class.java)
+        postfixCreator = PostfixCreatorImpl(variableStorage)
     }
 
     @Test
@@ -30,6 +32,28 @@ class PostfixCreatorImplTest {
         val expected = listOf(
             ConstValue(2.0),
             ConstValue(2.0),
+            Sum()
+        )
+
+        val actual = postfixCreator.createFromTokens(tokens)
+
+        if (actual is PostfixCreator.Result.Success)
+            assertEquals(expected, actual.parts, "wrong postfix expression")
+        else
+            fail("failed create postfix $actual")
+    }
+
+    @Test
+    fun `simple translate a + b  ==  a b +`() {
+        val tokens = listOf(
+            Token.of("a", TokenType.VARIABLE),
+            Token.of("+", TokenType.PLUS),
+            Token.of("b", TokenType.VARIABLE)
+        )
+
+        val expected = listOf(
+            VariableValue("a", variableStorage),
+            VariableValue("b", variableStorage),
             Sum()
         )
 

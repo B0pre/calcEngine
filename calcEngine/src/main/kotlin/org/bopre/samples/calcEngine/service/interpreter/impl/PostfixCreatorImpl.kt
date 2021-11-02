@@ -3,10 +3,11 @@ package org.bopre.samples.calcEngine.service.interpreter.impl
 import org.bopre.samples.calcEngine.service.interpreter.PostfixCreator
 import org.bopre.samples.calcEngine.service.interpreter.support.Token
 import org.bopre.samples.calcEngine.service.interpreter.support.TokenType
+import org.bopre.samples.calcEngine.service.interpreter.support.VariableStorage
 import org.bopre.samples.calcEngine.service.interpreter.support.calc.*
 import java.util.*
 
-class PostfixCreatorImpl : PostfixCreator {
+class PostfixCreatorImpl(val storage: VariableStorage) : PostfixCreator {
     override fun createFromTokens(originTokens: List<Token>): PostfixCreator.Result {
 
         val postfix: Deque<CalcPart> = LinkedList();
@@ -57,6 +58,10 @@ class PostfixCreatorImpl : PostfixCreator {
                         postfix.add(opers.pop());
                     }
                     opers.push(operation)
+                }
+                TokenType.VARIABLE -> {
+                    val token = tokens.pop();
+                    postfix.add(VariableValue(token.value, storage))
                 }
                 TokenType.VALUE -> {
                     val token = tokens.pop();
