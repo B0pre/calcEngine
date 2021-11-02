@@ -9,7 +9,7 @@ import java.util.regex.Pattern
 class ExprLexerImpl : ExprLexer {
 
     companion object {
-        private const val EXPR_REGEX_PARSER = "[-+*/()]|[A-Za-z_][A-Za-z0-9_]*|[0-9]*(\\.?[0-9]+)"
+        private const val EXPR_REGEX_PARSER = "[-+*/=()]|[A-Za-z_][A-Za-z0-9_]*|[0-9]*(\\.?[0-9]+)"
     }
 
     override fun analyse(expr: String): ExprLexer.LexerResult {

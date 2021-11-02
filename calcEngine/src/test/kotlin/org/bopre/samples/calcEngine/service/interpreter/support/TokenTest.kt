@@ -52,6 +52,7 @@ class TokenTest {
             Arguments.of("/", TokenType.DIV),
             Arguments.of("(", TokenType.BRACKET_LEFT),
             Arguments.of(")", TokenType.BRACKET_RIGHT),
+            Arguments.of("=", TokenType.ASSIGN),
             Arguments.of("241", TokenType.VALUE),
             Arguments.of("241.0", TokenType.VALUE),
             Arguments.of("241.1", TokenType.VALUE),
