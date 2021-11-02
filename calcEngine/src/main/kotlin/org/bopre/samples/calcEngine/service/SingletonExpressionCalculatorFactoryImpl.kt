@@ -5,7 +5,7 @@ import org.bopre.samples.calcEngine.service.interpreter.impl.ExprLexerImpl
 import org.bopre.samples.calcEngine.service.interpreter.impl.ExpressionCalculatorImpl
 import org.bopre.samples.calcEngine.service.interpreter.impl.PostfixCalculatorImpl
 import org.bopre.samples.calcEngine.service.interpreter.impl.PostfixCreatorImpl
-import org.bopre.samples.calcEngine.service.interpreter.support.VariableStorage
+import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 import org.springframework.stereotype.Component
 
 @Component

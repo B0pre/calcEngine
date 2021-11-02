@@ -1,7 +1,7 @@
 package org.bopre.samples.calcEngine.service.interpreter.impl
 
 import org.bopre.samples.calcEngine.service.interpreter.ExpressionCalculator
-import org.bopre.samples.calcEngine.service.interpreter.support.VariableStorage
+import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest

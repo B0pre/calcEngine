@@ -1,6 +1,6 @@
 package org.bopre.samples.calcEngine.service.interpreter.support.calc
 
-import org.bopre.samples.calcEngine.service.interpreter.support.VariableStorage
+import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 
 class VariableValue(val name: String, val storage: VariableStorage) : CalcValue.MutableValue {
 
