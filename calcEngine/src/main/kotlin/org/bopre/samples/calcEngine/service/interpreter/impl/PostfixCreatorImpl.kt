@@ -1,9 +1,9 @@
 package org.bopre.samples.calcEngine.service.interpreter.impl
 
 import org.bopre.samples.calcEngine.service.interpreter.PostfixCreator
+import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 import org.bopre.samples.calcEngine.service.interpreter.support.Token
 import org.bopre.samples.calcEngine.service.interpreter.support.TokenType
-import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 import org.bopre.samples.calcEngine.service.interpreter.support.calc.*
 import java.util.*
 

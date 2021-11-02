@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class CalculationServiceImpl(@Autowired private val calculatorFactory: ExpressionCalculatorFactory) : CalculationService {
+class CalculationServiceImpl(@Autowired private val calculatorFactory: ExpressionCalculatorFactory) :
+    CalculationService {
 
     override fun sumOperation(a: Double, b: Double): OutputResult = OutputResult(a + b)
 

@@ -1,12 +1,11 @@
 package org.bopre.samples.calcEngine.service
 
 import org.bopre.samples.calcEngine.service.interpreter.ExpressionCalculator
+import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 import org.bopre.samples.calcEngine.service.interpreter.impl.ExprLexerImpl
 import org.bopre.samples.calcEngine.service.interpreter.impl.ExpressionCalculatorImpl
 import org.bopre.samples.calcEngine.service.interpreter.impl.PostfixCalculatorImpl
 import org.bopre.samples.calcEngine.service.interpreter.impl.PostfixCreatorImpl
-import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
-import org.springframework.stereotype.Component
 
 class SingletonExpressionCalculatorFactoryImpl(val instance: ExpressionCalculator = createInstance()) :
     ExpressionCalculatorFactory {
