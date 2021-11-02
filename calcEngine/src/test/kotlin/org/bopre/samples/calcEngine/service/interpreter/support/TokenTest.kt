@@ -54,7 +54,9 @@ class TokenTest {
             Arguments.of(")", TokenType.BRACKET_RIGHT),
             Arguments.of("241", TokenType.VALUE),
             Arguments.of("241.0", TokenType.VALUE),
-            Arguments.of("241.1", TokenType.VALUE)
+            Arguments.of("241.1", TokenType.VALUE),
+            Arguments.of("a", TokenType.VARIABLE),
+            Arguments.of("long_name", TokenType.VARIABLE)
         )
 
         @JvmStatic

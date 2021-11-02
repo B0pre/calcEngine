@@ -59,4 +59,29 @@ internal class ExprLexerImplTest {
             fail("failed analyse $expr: $actual")
     }
 
+    @Test
+    fun `analyse complex expression with variable`() {
+        val expr = "(2 + 1)*1 - a/b"
+        val expected = listOf(
+            Token.of("(", TokenType.BRACKET_LEFT),
+            Token.of("2", TokenType.VALUE),
+            Token.of("+", TokenType.PLUS),
+            Token.of("1", TokenType.VALUE),
+            Token.of(")", TokenType.BRACKET_RIGHT),
+            Token.of("*", TokenType.MUL),
+            Token.of("1", TokenType.VALUE),
+            Token.of("-", TokenType.MINUS),
+            Token.of("a", TokenType.VARIABLE),
+            Token.of("/", TokenType.DIV),
+            Token.of("b", TokenType.VARIABLE),
+        )
+
+        val actual = lexer.analyse(expr)
+
+        if (actual is ExprLexer.LexerResult.Success)
+            assertEquals(expected, actual.tokens, "wrong token analyse");
+        else
+            fail("failed analyse $expr: $actual")
+    }
+
 }
