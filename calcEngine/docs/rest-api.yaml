@@ -1,0 +1,39 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Expressions
+paths:
+  /expr:
+    post:
+      summary: calculate expression
+      operationId: expressionCalc
+      tags:
+        - calculateExpressions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InputExpression"
+      responses:
+        200:
+          description: Inserted product info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OutputResult"
+components:
+  schemas:
+    InputExpression:
+      type: object
+      properties:
+        expression:
+          type: string
+          example: 2 + 3 * 4
+          description: expression to be calculated
+    OutputResult:
+      type: object
+      properties:
+        result:
+          type: number
+          format: double
+          example: 1234
