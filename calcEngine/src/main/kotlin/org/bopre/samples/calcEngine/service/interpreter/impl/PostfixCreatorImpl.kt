@@ -41,6 +41,7 @@ class PostfixCreatorImpl(val storage: VariableStorage) : PostfixCreator {
                     if (!opers.isEmpty())
                         opers.pop();
                 }
+                TokenType.ASSIGN,
                 TokenType.MUL,
                 TokenType.DIV,
                 TokenType.PLUS,
@@ -67,6 +68,7 @@ class PostfixCreatorImpl(val storage: VariableStorage) : PostfixCreator {
                     val token = tokens.pop();
                     postfix.add(ConstValue(token.value.toDouble()))
                 }
+                else -> return PostfixCreator.Result.Fail("unsupported token: ${tokens.peek()}")
             }
         }
 
@@ -85,8 +87,11 @@ class PostfixCreatorImpl(val storage: VariableStorage) : PostfixCreator {
 
     private fun getPriority(binaryOperation: BinaryOperation): Int =
         when (binaryOperation::class) {
-            Sum::class, Diff::class -> {
+            AssignVar::class -> {
                 1
+            }
+            Sum::class, Diff::class -> {
+                5
             }
             Div::class, Mul::class -> {
                 10
@@ -100,6 +105,7 @@ class PostfixCreatorImpl(val storage: VariableStorage) : PostfixCreator {
             TokenType.MINUS -> Diff()
             TokenType.MUL -> Mul()
             TokenType.DIV -> Div()
+            TokenType.ASSIGN -> AssignVar()
             else -> default
         }
 

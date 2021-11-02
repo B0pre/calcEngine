@@ -28,7 +28,8 @@ class ExpressionCalculatorImplIntegrationTest {
         fun sourcesWithVariables(): List<Arguments> =
             listOf(
                 Arguments.of("a + b", 5.0, mapOf("a" to 2, "b" to 3)),
-                Arguments.of("a + b*3 - c/d", 8.5, mapOf("a" to 2, "b" to 3, "c" to 10, "d" to 4))
+                Arguments.of("a + b*3 - c/d", 8.5, mapOf("a" to 2, "b" to 3, "c" to 10, "d" to 4)),
+                Arguments.of("a = b = 1", 1, emptyMap<String, Double>())
             )
 
         private class StaticStorage : VariableStorage {
