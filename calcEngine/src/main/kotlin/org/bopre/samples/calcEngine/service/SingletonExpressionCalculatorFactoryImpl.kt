@@ -8,7 +8,6 @@ import org.bopre.samples.calcEngine.service.interpreter.impl.PostfixCreatorImpl
 import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
 import org.springframework.stereotype.Component
 
-@Component
 class SingletonExpressionCalculatorFactoryImpl(val instance: ExpressionCalculator = createInstance()) :
     ExpressionCalculatorFactory {
 
