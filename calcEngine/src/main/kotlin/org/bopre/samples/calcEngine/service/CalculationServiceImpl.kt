@@ -18,7 +18,7 @@ class CalculationServiceImpl(@Autowired private val calculatorFactory: Expressio
     override fun mulOperation(a: Double, b: Double): OutputResult = OutputResult(a * b)
 
     override fun expression(input: InputExpression): OutputResult {
-        return OutputResult(calculatorFactory.getCalculator().calculate(input.expr))
+        return OutputResult(calculatorFactory.getCalculator().calculate(input.expression!!))
     }
 
 }

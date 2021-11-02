@@ -31,7 +31,7 @@ class CalculationServiceImplTest {
 
         val actual = calculationService.sumOperation(a, b)
 
-        assertEquals(expected, actual.result, DOUBLE_DELTA, "wrong result")
+        assertEquals(expected, actual.result!!, DOUBLE_DELTA, "wrong result")
     }
 
     @Test
@@ -42,7 +42,7 @@ class CalculationServiceImplTest {
 
         val actual = calculationService.diffOperation(a, b)
 
-        assertEquals(expected, actual.result, DOUBLE_DELTA, "wrong result")
+        assertEquals(expected, actual.result!!, DOUBLE_DELTA, "wrong result")
     }
 
     @Test
@@ -53,7 +53,7 @@ class CalculationServiceImplTest {
 
         val actual = calculationService.divOperation(a, b)
 
-        assertEquals(expected, actual.result, DOUBLE_DELTA, "wrong result")
+        assertEquals(expected, actual.result!!, DOUBLE_DELTA, "wrong result")
     }
 
     @Test
@@ -64,7 +64,7 @@ class CalculationServiceImplTest {
 
         val actual = calculationService.mulOperation(a, b)
 
-        assertEquals(expected, actual.result, DOUBLE_DELTA, "wrong result")
+        assertEquals(expected, actual.result!!, DOUBLE_DELTA, "wrong result")
     }
 
     @Test
