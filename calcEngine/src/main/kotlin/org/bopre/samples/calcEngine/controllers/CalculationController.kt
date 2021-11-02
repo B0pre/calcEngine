@@ -1,11 +1,10 @@
 package org.bopre.samples.calcEngine.controllers
 
+import org.bopre.samples.calcEngine.data.dto.InputExpression
 import org.bopre.samples.calcEngine.data.dto.OutputResult
 import org.bopre.samples.calcEngine.service.CalculationService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class CalculationController(@Autowired val calculationService: CalculationService) {
@@ -28,6 +27,11 @@ class CalculationController(@Autowired val calculationService: CalculationServic
     @GetMapping("/mul")
     fun mulOperation(@RequestParam("a") a: Double, @RequestParam("b") b: Double): OutputResult {
         return calculationService.mulOperation(a, b);
+    }
+
+    @PostMapping(value = ["/expr"], produces = ["application/json"])
+    fun expressionCal(@RequestBody expr: InputExpression): OutputResult {
+        return calculationService.expression(expr)
     }
 
 }
