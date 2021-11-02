@@ -15,7 +15,11 @@ class PostfixCreatorImpl : PostfixCreator {
 
         val delimiter = object : BinaryOperation {
             override fun calc(leftOperand: CalcValue, rightOperand: CalcValue): CalcValue {
-                throw UnsupportedOperationException("not supported calculation for delimiter")
+                return object : CalcValue {
+                    override fun getValue(): CalcValue.CalcResult {
+                        return CalcValue.CalcResult.Fail("not supported calculation for delimiter")
+                    }
+                }
             }
         }
 

@@ -27,7 +27,10 @@ class PostfixCalculatorImpl : PostfixCalculator {
             }
             return PostfixCalculator.CalcResult.Fail("unsupported part: $calcPart")
         }
-        return PostfixCalculator.CalcResult.Success(valueStack.pop().value)
+        val calcResult = valueStack.pop().getValue();
+        if (calcResult is CalcValue.CalcResult.Success)
+            return PostfixCalculator.CalcResult.Success(calcResult.value)
+        return PostfixCalculator.CalcResult.Fail("failed calculate: $calcResult")
     }
 
 }
