@@ -2,6 +2,7 @@ package org.bopre.samples.calcEngine.controllers
 
 import org.bopre.samples.calcEngine.data.dto.ResponseError
 import org.bopre.samples.calcEngine.data.exceptions.CalculationException
+import org.bopre.samples.calcEngine.logging.Slf4jLoggable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -10,8 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class ExceptionControllerAdvice {
 
+    companion object : Slf4jLoggable() {}
+
     @ExceptionHandler(CalculationException::class)
     fun calculationException(err: CalculationException): ResponseEntity<ResponseError> {
+        log.info("calculation failed: $err")
         val error = ResponseError(message = "calculation exception ${err.message}")
 
         return ResponseEntity
@@ -21,6 +25,7 @@ class ExceptionControllerAdvice {
 
     @ExceptionHandler(Exception::class)
     fun handleGeneralException(err: Exception): ResponseEntity<ResponseError> {
+        log.warn("unhandled error: $err")
         val error = ResponseError(message = "undefined server error")
 
         return ResponseEntity
