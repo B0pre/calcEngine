@@ -6,6 +6,7 @@ import org.bopre.samples.calcEngine.service.interpreter.ExpressionCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 
 class CalculationServiceImplTest {
@@ -31,12 +32,25 @@ class CalculationServiceImplTest {
         val expected = OutputResult(1234.0)
 
         val calculator = Mockito.mock(ExpressionCalculator::class.java)
-        Mockito.`when`(calculator.calculate(exprStr)).thenReturn(expected.result)
+        Mockito.`when`(calculator.calculate(exprStr)).thenReturn(ExpressionCalculator.Result.Success(expected.result))
         Mockito.`when`(calculatorFactory.getCalculator()).thenReturn(calculator)
 
         val actual = calculationService.expression(expr)
 
         assertEquals(expected, actual, "wrong result")
+    }
+
+    @Test
+    fun expressionCalculationFailed() {
+        val exprStr = "a + b"
+        val expr = InputExpression(exprStr)
+
+        val calculator = Mockito.mock(ExpressionCalculator::class.java)
+        Mockito.`when`(calculator.calculate(Mockito.anyString()))
+            .thenReturn(ExpressionCalculator.Result.Fail("fail"))
+        Mockito.`when`(calculatorFactory.getCalculator()).thenReturn(calculator)
+
+        assertThrows<Exception> { calculationService.expression(expr) }
     }
 
 }

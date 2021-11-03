@@ -6,10 +6,9 @@ import org.bopre.samples.calcEngine.service.interpreter.PostfixCalculator
 import org.bopre.samples.calcEngine.service.interpreter.PostfixCreator
 import org.bopre.samples.calcEngine.service.interpreter.support.Token
 import org.bopre.samples.calcEngine.service.interpreter.support.calc.CalcPart
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito
 
 class ExpressionCalculatorImplTest {
@@ -50,7 +49,10 @@ class ExpressionCalculatorImplTest {
 
         val actual = expressionCalculator.calculate(expr);
 
-        assertEquals(expected, actual, DOUBLE_DELTA, "wrong result")
+        if (actual is ExpressionCalculator.Result.Success)
+            assertEquals(expected, actual.value, DOUBLE_DELTA, "wrong result")
+        else
+            fail("expected success but was $actual")
     }
 
     @Test
@@ -66,9 +68,8 @@ class ExpressionCalculatorImplTest {
         Mockito.`when`(postfixCalculator.calculatePostfix(Mockito.anyList()))
             .thenReturn(PostfixCalculator.CalcResult.Success(expected));
 
-        assertThrows<Exception> {
-            expressionCalculator.calculate(expr)
-        }
+        val actual = expressionCalculator.calculate(expr);
+        assertTrue(actual is ExpressionCalculator.Result.Fail, "expected fail but was")
     }
 
     @Test
@@ -84,9 +85,8 @@ class ExpressionCalculatorImplTest {
         Mockito.`when`(postfixCalculator.calculatePostfix(Mockito.anyList()))
             .thenReturn(PostfixCalculator.CalcResult.Success(expected));
 
-        assertThrows<Exception> {
-            expressionCalculator.calculate(expr)
-        }
+        val actual = expressionCalculator.calculate(expr);
+        assertTrue(actual is ExpressionCalculator.Result.Fail, "expected fail but was")
     }
 
     @Test
@@ -102,9 +102,8 @@ class ExpressionCalculatorImplTest {
         Mockito.`when`(postfixCalculator.calculatePostfix(Mockito.anyList()))
             .thenReturn(PostfixCalculator.CalcResult.Fail("fail"));
 
-        assertThrows<Exception> {
-            expressionCalculator.calculate(expr)
-        }
+        val actual = expressionCalculator.calculate(expr);
+        assertTrue(actual is ExpressionCalculator.Result.Fail, "expected fail but was")
     }
 
 }

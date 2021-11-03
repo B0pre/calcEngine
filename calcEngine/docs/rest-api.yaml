@@ -30,6 +30,8 @@ components:
           type: string
           example: 2 + 3 * 4
           description: expression to be calculated
+      required:
+        - expression
     OutputResult:
       type: object
       properties:
@@ -37,3 +39,5 @@ components:
           type: number
           format: double
           example: 1234
+      required:
+        - result

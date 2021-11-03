@@ -11,20 +11,20 @@ class ExpressionCalculatorImpl(
     private val postfixCalculator: PostfixCalculator
 ) : ExpressionCalculator {
 
-    override fun calculate(expr: String): Double {
+    override fun calculate(expr: String): ExpressionCalculator.Result {
         val tokens = lexer.analyse(expr)
         if (tokens !is ExprLexer.LexerResult.Success)
-            throw RuntimeException("failed lexical analyse $tokens")
+            return ExpressionCalculator.Result.Fail("failed lexical analyse $tokens")
 
         val parsedPostfix = postfixCreator.createFromTokens(tokens.tokens);
         if (parsedPostfix !is PostfixCreator.Result.Success)
-            throw RuntimeException("failed transform to postfix $parsedPostfix")
+            return ExpressionCalculator.Result.Fail("failed transform to postfix $parsedPostfix")
 
-        val result = postfixCalculator.calculatePostfix(parsedPostfix.parts)
-        if (result !is PostfixCalculator.CalcResult.Success)
-            throw RuntimeException("failed calculation (postfix) $result")
+        val calcResult = postfixCalculator.calculatePostfix(parsedPostfix.parts)
+        if (calcResult !is PostfixCalculator.CalcResult.Success)
+            return ExpressionCalculator.Result.Fail("failed calculation (postfix) $calcResult")
 
-        return result.result;
+        return ExpressionCalculator.Result.Success(calcResult.result);
     }
 
 }

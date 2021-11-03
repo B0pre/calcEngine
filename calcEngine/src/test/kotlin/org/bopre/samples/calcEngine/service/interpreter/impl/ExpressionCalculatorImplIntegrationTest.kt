@@ -2,7 +2,9 @@ package org.bopre.samples.calcEngine.service.interpreter.impl
 
 import org.bopre.samples.calcEngine.service.interpreter.ExpressionCalculator
 import org.bopre.samples.calcEngine.service.interpreter.VariableStorage
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -72,7 +74,10 @@ class ExpressionCalculatorImplIntegrationTest {
     fun `test expression calculation`(expr: String, expected: Double) {
         val actual = expressionCalculatorImpl.calculate(expr)
 
-        assertEquals(expected, actual, DOUBLE_DELTA, "wrong result")
+        if (actual is ExpressionCalculator.Result.Success)
+            assertEquals(expected, actual.value, DOUBLE_DELTA, "wrong result")
+        else
+            fail("expected success but was $actual")
     }
 
     @ParameterizedTest
@@ -82,7 +87,10 @@ class ExpressionCalculatorImplIntegrationTest {
 
         val actual = expressionCalculatorImpl.calculate(expr)
 
-        assertEquals(expected, actual, DOUBLE_DELTA, "wrong result")
+        if (actual is ExpressionCalculator.Result.Success)
+            assertEquals(expected, actual.value, DOUBLE_DELTA, "wrong result")
+        else
+            fail("expected success but was $actual")
     }
 
 
