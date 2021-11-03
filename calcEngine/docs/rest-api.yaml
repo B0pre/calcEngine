@@ -45,6 +45,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/OutputResult"
+        400:
+          description: Invalid expression
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
 components:
   schemas:
     InputExpression:
@@ -77,3 +83,10 @@ components:
           format: double
           example: 0.5
           description: value assigned to variable
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: something went wrong
+          description: message of error occured
